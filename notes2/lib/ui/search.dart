@@ -27,6 +27,7 @@ class SearchPageState extends State<SearchPage> {
   int _size = 0;
   List<Note> _noteList = [];
   String keyString = "";
+
   @override
   void initState() {
     super.initState();

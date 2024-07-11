@@ -1,3 +1,4 @@
+// CenterPage 代码
 import 'package:flutter/material.dart';
 import '../entity/user.dart';
 import '../utils/api_service.dart';  // 引入 ApiService
@@ -280,7 +281,7 @@ class CenterPageState extends State<CenterPage> with AutomaticKeepAliveClientMix
       style: TextStyle(color: Color.fromRGBO(162, 162, 162, 1), fontSize: 16),
     ),
     Text(
-      "吐槽反馈你的想法",
+      "留下真挚的建议",
       style: TextStyle(color: Color.fromRGBO(162, 162, 162, 1), fontSize: 16),
     ),
     Text(

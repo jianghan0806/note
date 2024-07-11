@@ -43,7 +43,7 @@ public class NoteService {
     }
 
     public List<NoteEntity> findNotesByKeywordAndUserId(String keyword, Integer userId) {
-        return noteRepository.findByUserIdAndContentContaining(userId, keyword);
+        return noteRepository.findByUserIdAndTitleContainingOrContentContaining(userId, keyword, keyword);
     }
 
     public List<NoteEntity> findNotesByUserIdAndStar(Integer userId, Integer star) {

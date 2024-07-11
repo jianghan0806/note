@@ -19,54 +19,80 @@ class AboutPageState extends State<AboutPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(244, 244, 244, 1),
-        title: Text('关于'),
+        title: Text('关于', style: TextStyle(color: Colors.black)),
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0,
       ),
-      body: Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
-              height: 20,
-            ),
-            FlutterLogo(
-              size: 100.0,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 15.0),
-              padding: const EdgeInsets.fromLTRB(0, 15.0, 15.0, 15.0),
-              constraints: BoxConstraints(
-                  maxHeight: double.infinity,
-                  minHeight: 50.0
-              ),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  border: Border(
-                    bottom: Divider.createBorderSide(
-                        context, color: Colors.grey, width: 0.6),
-                  )
-              ),
-              child: Row(
-                //为了数字类文字居中
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    '感谢您的支持',
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10,),
+            SizedBox(height: 20),
+            FlutterLogo(size: 100.0),
+            SizedBox(height: 20),
             Text(
-              '这是一个日记本',
-              style: TextStyle(fontSize: 18),
+              '日记本应用',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
+            SizedBox(height: 10),
+            Text(
+              '版本 1.0.0',
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+            Divider(height: 40, color: Colors.grey),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '关于应用',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              '这是一个用于记录和管理日记的应用程序。你可以在这里记录每日心情、重要事件，'
+                  '并且可以根据日期进行查看和管理。',
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.justify,
+            ),
+            SizedBox(height: 20),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '开发者',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              '本应用由 [XXX] 开发。如果你有任何建议或问题，欢迎联系我们。',
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.justify,
+            ),
+            SizedBox(height: 20),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '联系方式',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              '邮箱: ynu@example.com\n'
+                  '电话: +123456789\n'
+                  '网站: www.software.com',
+              style: TextStyle(fontSize: 16),
+            ),
+            SizedBox(height: 20),
+            Text(
+              '感谢您的支持',
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+            SizedBox(height: 10),
           ],
-        ),)
-      ,
+        ),
+      ),
     );
   }
 }

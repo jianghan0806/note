@@ -28,10 +28,15 @@ class _FeedbackPageState extends State<FeedbackPage> {
   }
 
   void _loadFeedbacks() async {
-    List<UserFeedback> feedbacks = await widget.apiService.getAllFeedbacks();
-    setState(() {
-      _feedbackList = feedbacks;
-    });
+    try {
+      List<UserFeedback> feedbacks = await widget.apiService.getAllFeedbacks();
+      setState(() {
+        _feedbackList = feedbacks;
+      });
+    } catch (e) {
+      // 处理加载反馈时的错误
+      print('Failed to load feedbacks: $e');
+    }
   }
 
   @override
@@ -83,7 +88,12 @@ class _FeedbackPageState extends State<FeedbackPage> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Text('Loading...');
               } else if (snapshot.hasError) {
+                if (snapshot.error.toString().contains('404')) {
+                  return Text('Error: User not found');
+                }
                 return Text('Error: ${snapshot.error}');
+              } else if (!snapshot.hasData || snapshot.data == null) {
+                return Text('Error: User not found');
               } else {
                 String username = snapshot.data?.username ?? 'Unknown';
                 return Text('用户: $username, 时间: ${DateTime.fromMillisecondsSinceEpoch(feedback.timestamp)}');
@@ -104,12 +114,14 @@ class _FeedbackPageState extends State<FeedbackPage> {
         timestamp: DateTime.now().millisecondsSinceEpoch,
       );
 
-      await widget.apiService.saveFeedback(userFeedback);
-
-      _feedbackController.clear();
-
-      // Immediately update feedback list after saving
-      _loadFeedbacks();
+      try {
+        await widget.apiService.saveFeedback(userFeedback);
+        _feedbackController.clear();
+        _loadFeedbacks();  // Immediately update feedback list after saving
+      } catch (e) {
+        // 处理保存反馈时的错误
+        print('Failed to save feedback: $e');
+      }
     } else {
       showDialog(
         context: context,

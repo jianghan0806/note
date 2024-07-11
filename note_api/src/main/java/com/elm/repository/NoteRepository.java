@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface NoteRepository extends JpaRepository<NoteEntity, Integer> {
     List<NoteEntity> findByUserId(Integer userId);
-    List<NoteEntity> findByUserIdAndContentContaining(Integer userId, String keyword);
+    List<NoteEntity> findByUserIdAndTitleContainingOrContentContaining(Integer userId, String titleKeyword, String contentKeyword);
     List<NoteEntity> findByUserIdAndStar(Integer userId, Integer star);
 }

@@ -3,6 +3,7 @@ package com.elm.controller;
 import com.elm.entity.UserEntity;
 import com.elm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,9 +58,10 @@ public class UserController {
 
     // 根据用户名和密码查找User
     @GetMapping("/search")
-    public ResponseEntity<Optional<UserEntity>> getUserByUsernameAndPassword(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<UserEntity> getUserByUsernameAndPassword(@RequestParam String username, @RequestParam String password) {
         Optional<UserEntity> user = userService.findUserByUsernameAndPassword(username, password);
-        return ResponseEntity.ok(user);
+        return user.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(new UserEntity(0, "用户不存在", "", "", "", "", "")));
     }
 
     // 根据用户名查找User
@@ -69,3 +71,4 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 }
+
